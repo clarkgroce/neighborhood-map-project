@@ -1,28 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighbourhood Map</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+
     <style type="text/css">
       html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
     </style>
-    <script type="text/javascript"
+    <!--script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZdfpTZTt926fbq5JDAvV3DPDJ873qHXA">
     </script>
     <script type="text/javascript">
 function initialize() {
   var mapOptions = {
     center: {lat: 34.099360, lng: -84.518102},
-    zoom: 16
+    zoom: 9
   };
   var map = new
     google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
+        mapOptions);
 }
 google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+    </script-->
   </head>
   <body>
-    <div id="search-bar"></div>
-    <div id="location-list"></div>
-    <div id="map-canvas"></div>
+    <div class="container">
+
+      <div class="row" id="location-list">
+        <div class="col-md-4">
+          <form data-bind="submit: addItem">
+            Search / Filter:
+            <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
+            <button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
+            <p>Your items:</p>
+            <select multiple="multiple" width="50" data-bind="options: items"> </select>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <script src='bower_components/jquery/dist/jquery.js'></script>
+    <script src='bower_components/bootstrap/dist/js/bootstrap.js'></script>
+    <script src='bower_components/knockout/dist/knockout.js'></script>
+    <script src='LocationListModel.js'></script>
   </body>
 </html>
