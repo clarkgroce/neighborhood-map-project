@@ -1,51 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Neighbourhood Map</title>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+  <!DOCTYPE html>
+ <html lang="en">
+<head>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>Neighbourhood Map</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
 
-    <style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-    </style>
-    <!--script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZdfpTZTt926fbq5JDAvV3DPDJ873qHXA">
-    </script>
-    <script type="text/javascript">
-function initialize() {
-  var mapOptions = {
-    center: {lat: 34.099360, lng: -84.518102},
-    zoom: 9
-  };
-  var map = new
-    google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-}
-google.maps.event.addDomListener(window, 'load', initialize);
-    </script-->
-  </head>
-  <body>
-    <div class="container">
+<!-- Need to have:
+- search bar
+- list view of locations
+- google map that user's can interact with
+- markers for your favorite places
+- search bar should filter your list
+- (search should filter the list view & markers on the map)
+- clicking on the list view - shows the marker on the map & info box pop up for the location
+- click on marker -- little animation and info box...
+-->
 
-      <div class="row" id="location-list">
-        <div class="col-md-4">
-          <form data-bind="submit: addItem">
-            Search / Filter:
-            <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
-            <button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
-            <p>Your items:</p>
-            <select multiple="multiple" width="50" data-bind="options: items"> </select>
-          </form>
+<body>
+<div class="container">
+
+    <header id="header">
+        <h1>Locations</h1>
+        <input id="location-filter" data-bind="value: currentFilter" placeholder="Search Locations" autofocus>
+        <!-- , valueUpdate: 'afterkeydown', enterKey: search -->
+        <button data-bind="click: function() { filter() }"> Search </button>
+    </header>
+
+    <div class="row">
+
+        <div class="col-md-6" id="">
+            <section id="main" data-bind="visible: locations().length">
+                <input id="toggle-restaurants" type="checkbox"> <!--data-bind="checked: restaurants"-->
+                <label for="toggle-restaurants">Restaurants</label>
+                <input id="toggle-coffee-shops" type="checkbox">
+                <label for="toggle-coffee-shops">Coffee Shops</label>
+                <input id="toggle-book-stores" type="checkbox">
+                <label for="toggle-book-stores">Book Stores</label>
+
+                <ul id="location-list" data-bind="foreach: filteredLocations">
+                    <li>
+                        <div class="view">
+                            <label data-bind="text: title"></label>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+         </div>
+
+        <div class="col-md-6" id="map">
+
         </div>
-      </div>
+     </div>
+</div>
 
-    </div>
-
+<script src='bower_components/jquery/dist/jquery.js'></script>
+<script src='bower_components/bootstrap/dist/js/bootstrap.js'></script>
+<script src='bower_components/knockout/dist/knockout.js'></script>
+<script src='scripts/LocationListViewModel.js'></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZdfpTZTt926fbq5JDAvV3DPDJ873qHXA">
+</script>
+ 
     <script src='bower_components/jquery/dist/jquery.js'></script>
     <script src='bower_components/bootstrap/dist/js/bootstrap.js'></script>
     <script src='bower_components/knockout/dist/knockout.js'></script>
     <script src='LocationListModel.js'></script>
   </body>
+</body>
 </html>

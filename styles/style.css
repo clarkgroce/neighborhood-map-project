@@ -1,0 +1,11 @@
+#location-list {
+    height = 300px;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 400px;
+    margin: 0;
+    padding: 0;
+}
