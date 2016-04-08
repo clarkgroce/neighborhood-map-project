@@ -25,26 +25,26 @@
 
     <header id="header">
         <h1>Locations</h1>
-        <input id="location-filter" data-bind="value: currentFilter" placeholder="Search Locations" autofocus>
-        <!-- , valueUpdate: 'afterkeydown', enterKey: search -->
-        <button data-bind="click: function() { filter() }"> Search </button>
+        <form data-bind="submit: filter">
+            Filter locations: <input id="location-filter" data-bind="value: currentFilter" placeholder="Coffee" autofocus/>
+            <button type="submit">Go</button>
+        </form>
     </header>
 
     <div class="row">
-
         <div class="col-md-6" id="">
-            <section id="main" data-bind="visible: locations().length">
-                <input id="toggle-restaurants" type="checkbox"> <!--data-bind="checked: restaurants"-->
-                <label for="toggle-restaurants">Restaurants</label>
-                <input id="toggle-coffee-shops" type="checkbox">
-                <label for="toggle-coffee-shops">Coffee Shops</label>
-                <input id="toggle-book-stores" type="checkbox">
-                <label for="toggle-book-stores">Book Stores</label>
-
-                <ul id="location-list" data-bind="foreach: filteredLocations">
+            <section id="main">
+                <div class="selectedCategories" data-bind="foreach: selectedCategories">
+                    <input id="test" type="checkbox" data-bind="checked: isSelected" />
+                    <label for="test" data-bind="text: categoryName"></label>
+              </div>
+              <ul id="location-list" data-bind="foreach: filteredLocations, visible: locations().length">
                     <li>
                         <div class="view">
                             <label data-bind="text: title"></label>
+                            <span data-bind="text: category"></span>
+                            <span data-bind="text: lat"></span>
+                            <span data-bind="text: lng"></span>
                         </div>
                     </li>
                 </ul>
@@ -65,10 +65,6 @@
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZdfpTZTt926fbq5JDAvV3DPDJ873qHXA">
 </script>
- 
-    <script src='bower_components/jquery/dist/jquery.js'></script>
-    <script src='bower_components/bootstrap/dist/js/bootstrap.js'></script>
-    <script src='bower_components/knockout/dist/knockout.js'></script>
     <script src='LocationListModel.js'></script>
   </body>
 </body>
