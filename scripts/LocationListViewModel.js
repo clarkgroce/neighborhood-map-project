@@ -1,3 +1,4 @@
+
 (function () {
     'use strict';
 
@@ -12,6 +13,9 @@
             console.log(self);
         }
     };
+
+
+
     // The Location List ViewModel
     var LocationListViewModel = function (locationModel) {
         var self = this;
@@ -36,13 +40,13 @@
 
         function initializeMap() {
             var mapOptions = {
-                center: {lat: 49.2739952, lng: -123.1403072},
-                zoom: 14
+                center: {lat: 34.102803, lng: -84.516853},
+                zoom: 15
             };
             var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
             var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(49.2739952,-123.1403072),
+                position: new google.maps.LatLng(34.102803,-84.516853),
                 map: map,
                 title: 'Hello World!'
             });
@@ -70,8 +74,7 @@
         // Load example data from FourSquare
         function loadFourSquareData() {
 
-            //var queryURL = 'https://api.foursquare.com/v2/venues/search?near="Vancouver, BC"?client_id=VKUTCSNJXF00HDNE5ZMBMPFU0SG3MDJUXVAUOGMJQKOOCJA1&client_secret=1SDCLMDOJEYT13I4S4TRGDADKZD3XE0VL0RH32J0MELJFAKQ';
-            var queryURL = 'https://api.foursquare.com/v2/venues/explore?ll=49.2739952,-123.1403072&limit=20&oauth_token=XWDKSEKZ0FTNFJMOJ1SA5MSSA1HZVCMPTTZ5DYJUX0YFI3K4&v=20150509';
+            var queryURL = 'https://api.foursquare.com/v2/venues/explore?ll=34.102803,-84.516853&client_id=PVACF2UV50T3NPRAN10QREVQGUFATZXJ23K01UJ1GZB4T2K0&client_secret=42PTYNAYSSEO1WZDYRRIWFOVA442LHB10FPFM12BSM43ZSM5&v=20160410';
 
             $.getJSON(queryURL, function(data) {
 
@@ -90,31 +93,45 @@
         }
 
         loadFourSquareData();
-          // Array of passed in locations -- mapped to an observableArray of Location objects
-       //self.locations = ko.observableArray(locationModel.locations.map(function (location) {
+
+        // Array of passed in locations -- mapped to an observableArray of Location objects
+        //self.locations = ko.observableArray(locationModel.locations.map(function (location) {
         //    return new Location(location.title, location.lat, location.lng);
         //}));
 
         console.log("Mapped locations: " + self.locations());
- 
-         // Store the current search filter entered by the user
+
+        // Store the current search filter entered by the user
         self.currentFilter = ko.observable();
- 
-         // Filter locations array based on search input
+
+        // Filter locations array based on search input
         self.filteredLocations = ko.computed(function () {
             if (!self.currentFilter()) {
                 return self.locations();
-            } else { 
+            } else {
                 return ko.utils.arrayFilter(self.locations(), function(location) {
                     return location.title.indexOf(self.currentFilter()) > -1;
                 });
             }
-          });
-          self.filter = function() {
-             self.currentFilter();
-          };  
+        });
 
-        // Bind an instance of our viewModel to the page
+        self.filter = function() {
+            self.currentFilter();
+        };
+
+        // Console Log the JSON form of the ViewModel
+        //console.log(ko.toJSON(self));
+
+
+
+    };
+
+
+
+
+
+
+    // Bind an instance of our viewModel to the page
     var viewModel = new LocationListViewModel();
     ko.applyBindings(viewModel);
 }());
