@@ -153,7 +153,7 @@
                 return self.locations();
             } else {
                 return ko.utils.arrayFilter(self.locations(), function(location) {
-                    return location.title.indexOf(self.currentFilter()) > -1;
+                    return location.title.toLowerCase().indexOf(self.currentFilter().toLowerCase()) > -1;
                 });
             }
         });
