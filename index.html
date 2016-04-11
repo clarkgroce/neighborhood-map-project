@@ -24,20 +24,19 @@
 
     <div id="search-bar">
         <form data-bind="submit: filter">
-            <input id="location-filter" data-bind="value: currentFilter" placeholder="Coffee" autofocus/>
+            <input id="location-filter" data-bind="value: currentFilter" placeholder="Search Locations" autofocus/>
             <button type="submit">Filter</button>
         </form>
     </div>    
 
     <div id="search-results">
-        <h3>Results:</h3>
+        <h4>Locations:</h4>
+        <h4 id="location-error" data-bind="visible: locations().length < 1">No Locations Available</h4>
         <ul id="location-list" data-bind="foreach: filteredLocations, visible: locations().length">
             <li>
                 <div class="view">
                     <label data-bind="text: title"></label>
                     <span data-bind="text: category"></span>
-                    <span data-bind="text: lat"></span>
-                    <span data-bind="text: lng"></span>
                 </div>
             </li>
         </ul>

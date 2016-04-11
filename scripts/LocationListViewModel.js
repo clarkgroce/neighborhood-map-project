@@ -60,18 +60,24 @@
         */
 
         function initializeMap() {
-            var mapOptions = {
-                center: {lat: 34.102, lng: -84.519},
-                zoom: 16,
-                //Disable Google controls/UI
-                disableDefaultUI: true
-            };
-            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-            //Fix Map Height
-            // document.getElementById('map').height($(window).height());
-            return map;
+            //Uses google global variable, If there is no internet connection, google is not defined.
+            if (typeof google === 'undefined') {
+                console.log("No google variable");
+                return null;    
+            } else {
+                var mapOptions = {
+                    center: {lat: 34.102, lng: -84.519},
+                    zoom: 16,
+                    //Disable Google controls/UI
+                    disableDefaultUI: true
+                };
+                var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                //Fix Map Height
+                // document.getElementById('map').height($(window).height());
+                return map;
+            }
         }
-
+             
         // Load example data from FourSquare
         function addCategory(name, pluralName) {
 
@@ -102,8 +108,9 @@
                     console.log(location);
                     location.addToMap(self.map);
                     self.locations.push(location);
-                }
-
+                } 
+            }).fail(function() {
+                console.log("Sorry, unable to complete request at the moment");
             });
         }
 
