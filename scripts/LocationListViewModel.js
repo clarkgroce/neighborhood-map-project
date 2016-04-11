@@ -41,7 +41,10 @@
         self.locations = ko.observableArray([]);
 
         // Location Categories
-        self.categories = [
+        self.categories = ko.observableArray([]);
+
+        /*
+        self.catagories = [
             { categoryName: "Coffee Shops" },
             { categoryName: "Restaurants" },
             { categoryName: "Book Stores" },
@@ -54,21 +57,43 @@
             { categoryName: "Book Stores", isSelected: false },
             { categoryName: "Parks", isSelected: false }
         ];
+        */
 
         function initializeMap() {
             var mapOptions = {
-                center: {lat: 34.102803, lng: -84.516853},
-                zoom: 15
+                center: {lat: 34.102, lng: -84.519},
+                zoom: 16,
+                //Disable Google controls/UI
+                disableDefaultUI: true
             };
-            return new google.maps.Map(document.getElementById('map'), mapOptions);
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            //Fix Map Height
+            // document.getElementById('map').height($(window).height());
+            return map;
         }
 
         // Load example data from FourSquare
-        function loadFourSquareData() {
+        function addCategory(name, pluralName) {
 
-            var queryURL = 'https://api.foursquare.com/v2/venues/explore?ll=34.102803,-84.516853&client_id=PVACF2UV50T3NPRAN10QREVQGUFATZXJ23K01UJ1GZB4T2K0&client_secret=42PTYNAYSSEO1WZDYRRIWFOVA442LHB10FPFM12BSM43ZSM5&v=20160410';
+            // Check to see if this category already exists
+            var match = ko.utils.arrayFirst(self.categories(), function(item) {
+                 return name === item.categoryName;
+            });
+
+            if (!match) {
+                //Add new category
+                var category = { categoryNmae: name, pluralName: pluralName, isSelected: true};
+                self.categories.push(category);
+            }
+        }
+        
+        //Load data from foursquare
+        function loadFourSquareData() {
+            // Return the top interesting results from FourSquare
+            var queryURL = 'https://api.foursquare.com/v2/venues/explore?ll=34.07,-84.52&client_id=PVACF2UV50T3NPRAN10QREVQGUFATZXJ23K01UJ1GZB4T2K0&client_secret=42PTYNAYSSEO1WZDYRRIWFOVA442LHB10FPFM12BSM43ZSM5&v=20160410';
 
             $.getJSON(queryURL, function(data) {
+                console.log(data);         
 
                 var places = data.response.groups[0].items;
                 for (var i = 0; i < places.length; i++) {
@@ -85,16 +110,19 @@
         function createLocation(locationData) {
             var name = locationData.name;
             var category = locationData.categories[0].name;
+            var phoneNumber = locationData.contact.formattedPhone;
             var info = '<div id="content">'+
                 '<div id="siteNotice">'+category+
                 '</div>'+
                 '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>'+
                 '<div id="bodyContent">'+
-                '<p>other stuff</p>'+
+                '<p>phoneNumber</p>'+
                 '</div>'+
                 '</div>';
             var lat = locationData.location.lat;
             var lng = locationData.location.lng;
+
+            addCategory(locationData.categories[0].name, locationData.categories[0].pluralName);
 
             return new Location(name, category, info, lat, lng);
         }
@@ -132,11 +160,6 @@
 
 
     };
-
-
-
-
-
 
     // Bind an instance of our viewModel to the page
     var viewModel = new LocationListViewModel();

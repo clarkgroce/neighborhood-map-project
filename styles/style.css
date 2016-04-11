@@ -1,11 +1,45 @@
-#location-list {
+/*#location-list {
     height = 300px;
     margin: 0;
     padding: 0;
 }
+*/
+
+body, html {
+	height: 100%;
+	width: 100%;
+
+}
 
 #map {
-    height: 400px;
+    height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
+
+#search-bar {
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 0;
+	margin: 20px;
+	max-width: 400px;
+	background: white;
+	box-shadow: 0 5px 5px #777777;
+}
+
+#search-results {
+	z-index: 1;
+	position: fixed;
+	top: 40px;
+	left: 0;
+	padding: 10px;
+	margin: 0;
+	min-height: 300px;
+	min-width: 400px;
+}
+
+
+
