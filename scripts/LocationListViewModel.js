@@ -17,7 +17,7 @@
         self.addToMap = function(googleMap) {
             // Create a marker
             self.marker = new google.maps.Marker({
-                position: new google.maps.LatLng(self.lat,self.lng),
+                position: {lat: self.lat, lng: self.lng},
                 map: googleMap,
                 title: self.title
             });
@@ -27,10 +27,23 @@
             google.maps.event.addListener(self.marker, 'click', function() {
                 self.marker.map.panTo(self.marker.position);
                 infowindow.open(googleMap, self.marker);
+
+                //Add bounce animation
+                self.marker.setAnimation(google.maps.Animation.BOUNCE);
+                window.setTimeout(function() {
+                    //Stop bounce animation
+                    self.marker.setAnimation(null);
+                }, 1440);
             });
 
             self.clicked = function() {
                 google.maps.event.trigger(self.marker, 'click');
+            };
+
+            self.hide = function() {
+                // Remove this marker from the map
+                // https://developers.google.com/maps/documentation/javascript/examples/marker-remove
+                self.marker.setMap(googleMap);
             }
         };
     };
@@ -48,22 +61,6 @@
         // Location Categories
         self.categories = ko.observableArray([]);
 
-        /*
-        self.catagories = [
-            { categoryName: "Coffee Shops" },
-            { categoryName: "Restaurants" },
-            { categoryName: "Book Stores" },
-            { categoryName: "Parks" }
-        ];
-
-        self.selectedCategories = [
-            { categoryName: "Coffee Shops", isSelected: false },
-            { categoryName: "Restaurants", isSelected: false },
-            { categoryName: "Book Stores", isSelected: false },
-            { categoryName: "Parks", isSelected: false }
-        ];
-        */
-
         function initializeMap() {
             //Uses google global variable, If there is no internet connection, google is not defined.
             if (typeof google === 'undefined') {
@@ -76,10 +73,7 @@
                     //Disable Google controls/UI
                     disableDefaultUI: true
                 };
-                var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-                //Fix Map Height
-                // document.getElementById('map').height($(window).height());
-                return map;
+                return new google.maps.Map(document.getElementById('map'), mapOptions);
             }
         }
              
@@ -141,23 +135,27 @@
 
         loadFourSquareData();
 
-        // Array of passed in locations -- mapped to an observableArray of Location objects
-        //self.locations = ko.observableArray(locationModel.locations.map(function (location) {
-        //    return new Location(location.title, location.lat, location.lng);
-        //}));
-
-        //console.log("Mapped locations: " + self.locations());
-
         // Store the current search filter entered by the user
         self.currentFilter = ko.observable();
 
         // Filter locations array based on search input
         self.filteredLocations = ko.computed(function () {
             if (!self.currentFilter()) {
+                // Show all location markers on map
+                ko.utils.arrayForEach(self.locations(), function(location) {
+                    location.show();
+                });
                 return self.locations();
             } else {
+                // Show filtered locations on map & hide others
                 return ko.utils.arrayFilter(self.locations(), function(location) {
-                    return location.title.toLowerCase().indexOf(self.currentFilter().toLowerCase()) > -1;
+                    if (location.title.toLowerCase().indexOf(self.currentFilter().toLowerCase()) > -1) {
+                        location.show();
+                        return true;
+                    } else {
+                        location.hide();
+                        return false;
+                    }
                 });
             }
         });

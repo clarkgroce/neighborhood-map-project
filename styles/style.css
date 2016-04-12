@@ -1,4 +1,5 @@
 body, html {
+    /* Need 100% in order for parents to have map fill the screen */
 	height: 100%;
 	width: 100%;
 }
