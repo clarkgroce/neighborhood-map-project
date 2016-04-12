@@ -43,6 +43,10 @@
             self.hide = function() {
                 // Remove this marker from the map
                 // https://developers.google.com/maps/documentation/javascript/examples/marker-remove
+                self.marker.setMap(null);
+            };
+
+            self.show = function() {
                 self.marker.setMap(googleMap);
             }
         };
@@ -171,7 +175,7 @@
 
         // Center and resize map when window resized
         window.addEventListener('resize', function() {
-            console.log('addEventListener - resize');
+            console.log('addEve ntListener - resize');
             self.map.setCenter(self.mapCenter);
             google.maps.event.trigger(map, "resize");
         });
