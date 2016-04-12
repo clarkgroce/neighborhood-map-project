@@ -25,11 +25,15 @@
             var infowindow = new google.maps.InfoWindow({ content: self.info});
 
             google.maps.event.addListener(self.marker, 'click', function() {
+                self.marker.map.panTo(self.marker.position);
                 infowindow.open(googleMap, self.marker);
             });
+
+            self.clicked = function() {
+                google.maps.event.trigger(self.marker, 'click');
+            }
         };
     };
-
 
     // The Location List ViewModel
     var LocationListViewModel = function (locationModel) {
@@ -164,6 +168,7 @@
 
         self.searchResultsClicked = function(location) {
             console.log(location);
+            location.clicked();
         };
 
         // Center and resize map when window resized
