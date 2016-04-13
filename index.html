@@ -32,21 +32,13 @@
         <div id="search-results-title"><h4>Locations</h4></div>
         <h4 id="search-results-error" data-bind="visible: locations().length < 1">No Locations Available</h4>
         <ul id="search-results-list" data-bind="foreach: filteredLocations, visible: locations().length">
-            <li data-bind="click: $root.searchResultsClicked">
-                <div class="view">
-                    <label data-bind="text: title"></label>
-                    <span data-bind="text: category"></span>
-                </div>
-            </li>
+            <li class="search-result-item" data-bind="click: $root.searchResultsClicked">
+                <p class="search-result-item-title" data-bind:"text: title"></p>
+                <p class="search-result-item-category" data-bind="text: category"></P>
+            </li>        
         </ul>
     </div>
-
-    <!--div class="selectedCategories" data-bind="foreach: categories">
-    <input id="test" type="checkbox" data-bind="checked: isSelected" />
-    <label for="test" data-bind="text: pluralName"></label>
-    </div-->
     <!--script src='scripts/bundle.js'></script -->
-
     <script src='bower_components/jquery/dist/jquery.js'></script>
     <script src='bower_components/bootstrap/dist/js/bootstrap.js'></script>
     <script src='bower_components/knockout/dist/knockout.js'></script>
