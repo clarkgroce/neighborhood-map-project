@@ -1,7 +1,7 @@
 body, html {
     /* Need 100% in order for parents to have map fill the screen */
-	height: 100%;
-	width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 #map {
@@ -12,17 +12,17 @@ body, html {
 }
 
 #search-bar {
-	z-index: 1;
-	position: fixed;
-	top: 0;
-	left: 0;
-	padding: 0;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0;
     margin: 10px;
     height: 30px;
     width: 300px;
-	background: white;
-	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.4);
-	display: flex;
+    background: white;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.4);
+    display: flex;
 }
 
 #search-bar-filter {
@@ -34,7 +34,7 @@ body, html {
 }
 
 #search-bar-filter:focus {
-	background: #d9edf7;
+    background: #d9edf7;
 }
 
 #search-bar-button {
@@ -52,16 +52,16 @@ body, html {
 }
 
 #search-results {
-	z-index: 1;
-	position: fixed;
-	top: 40px;
-	left: 0;
-	border: 5px;
-	padding: 0;
-	margin: 20px 10px;
-	height: 600px;
-	width: 300px;
-	background: white;
+    z-index: 1;
+    position: fixed;
+    top: 40px;
+    left: 0;
+    border: 5px;
+    padding: 0;
+    margin: 20px 10px;
+    height: 600px;
+    width: 300px;
+    background: white;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.4);
     overflow-y: auto; /* scroll vertically */
     overflow-x: hidden; /* clip horizontally */
@@ -80,5 +80,24 @@ body, html {
 
 #search-results-list {
      list-style-type: none;
- } 
+}
+
+#info-window {
+    margin: 0;
+    padding: 0;
+}
+
+#info-name {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+#info-category {
+
+}
+#info-body {
+    margin-top: 10px;
+} 
 
