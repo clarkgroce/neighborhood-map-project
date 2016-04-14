@@ -1,5 +1,5 @@
 body, html {
-    /* Need 100% in order for parents to have map fill the screen */
+   /* Need 100% for parents to have map fill the screen */
     height: 100%;
     width: 100%;
 }
@@ -61,9 +61,9 @@ body, html {
 }
 
 #search-results-list {
-     list-style-type: none;
-     margin: 0;
-     padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .search-result-item {
@@ -100,7 +100,10 @@ body, html {
     padding: 0;
 }
 
+#info-category {
+
+}
+
 #info-body {
     margin-top: 10px;
-} 
-
+}

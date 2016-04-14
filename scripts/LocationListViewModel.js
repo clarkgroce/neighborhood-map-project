@@ -57,7 +57,7 @@
             self.show = function() {
                 // Show this marker on the map.
                 self.marker.setMap(googleMap);
-            }
+            };
         };
     };
 
@@ -121,7 +121,7 @@
 
             if (!match) {
                 //Add new category
-                var category = { categoryNmae: name, pluralName: pluralName, isSelected: true};
+                var category = { categoryName: name, pluralName: pluralName, isSelected: true};
                 self.categories.push(category);
             }
         }
@@ -132,11 +132,10 @@
             var queryURL = 'https://api.foursquare.com/v2/venues/explore?ll=' +
             startingLat + ',' +
             startingLng +
-            '&limit=30' +
+            '&limit=20' +
             '&client_id=PVACF2UV50T3NPRAN10QREVQGUFATZXJ23K01UJ1GZB4T2K0&client_secret=42PTYNAYSSEO1WZDYRRIWFOVA442LHB10FPFM12BSM43ZSM5&v=20160410';
 
-            $.getJSON(queryURL, function(data) {
-                console.log(data);         
+            $.getJSON(queryURL, function(data) {        
                 var places = data.response.groups[0].items;
                 for (var i = 0; i < places.length; i++) {
                     var location = createLocation(places[i].venue);
@@ -154,7 +153,7 @@
             var category = locationData.categories[0].name;
 
             // Content for this locations infoWindow.
-            var info =  '<div id="info-window">'+
+            var info = '<div id="info-window">'+
             '<h1 id="info-name">' + name + '</h1>'+
             '<div id=info-category">' + category + '</div>'+
             '<div id="info-body">';
@@ -172,6 +171,7 @@
                 info += '<p>' + locationData.contact.formattedPhone + '</p>';
             }
             
+            // Add open status if available.
             if (locationData.hours && locationData.hours.status) {
                 info += '<p>' + locationData.hours.status + '</p>';
             }        
@@ -214,7 +214,6 @@
         // When a location in the list is clicked, pass that
         // click through to the location.
         self.searchResultsClicked = function(location) {
-            console.log(location);
             location.clicked();
         };
 
@@ -223,11 +222,9 @@
             self.map.setCenter(self.mapCenter);
             google.maps.event.trigger(map, "resize");
         });
-
     };
 
     // Bind an instance of our viewModel to the page
     var viewModel = new LocationListViewModel();
     ko.applyBindings(viewModel);
-
 }());
