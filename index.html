@@ -22,11 +22,7 @@
 <body>
     <div id="map"></div>
 
-    <div id="search-bar">
-        <input id="search-bar-filter" data-bind="value: currentFilter" placeholder="Search Locations" autofocus/>
-        <button id="search-bar-button">Search</button>
-        </form>
-    </div>    
+    <input id="search-bar" data-bind="textInput: currentFilter" placeholder="Search Locations" autofocus/>   
 
     <div id="search-results">
         <div id="search-results-title"><h4>Locations</h4></div>
