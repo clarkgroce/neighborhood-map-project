@@ -1,0 +1,25 @@
+{
+  "name": "neighborhood-map-project",
+  "version": "1.0.0",
+  "description": "Udacity Front-End Nanodegree Project 7 - Neighborhood Map",
+  "main": "scripts/LocationListViewModel.js",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-uglify": "^1.2.0"
+  },
+  "devDependencies": {
+    "gulp-jshint": "^1.10.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.6",
+    "jshint-stylish": "^1.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clarkgroce/neighborhood-map-project"
+  },
+  "author": "Clark Groce",
+  "license": "MIT"
+}
