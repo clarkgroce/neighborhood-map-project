@@ -11,6 +11,15 @@ body, html {
     padding: 0;
 }
 
+#maperror {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 200px;
+    width: 200px;
+    font: 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 /* Search Bar Styles */
 #search-bar {
     z-index: 1;

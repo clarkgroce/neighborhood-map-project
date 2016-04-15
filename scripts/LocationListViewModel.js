@@ -95,6 +95,7 @@
         function initializeMap() {
             //Uses google global variable, If there is no internet connection, google is not defined.
             if (typeof google === 'undefined') {
+                document.getElementById("maperror").innerHTML = "The google map could not be loaded.";
                 console.log("No google variable");
                 return null;    
             } else {
