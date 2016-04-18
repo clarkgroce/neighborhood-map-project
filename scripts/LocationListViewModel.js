@@ -144,7 +144,7 @@ function googleSuccess() {
                     self.locations.push(location);
                 } 
             }).fail(function() {
-                console.log("Sorry, unable to complete request at the moment");
+                console.log("foursquare request is not returning data");
             });
         }
 

@@ -18,7 +18,7 @@
 
     <div id="search-results">
         <div id="search-results-title"><h4>Locations</h4></div>
-        <h4 id="search-results-error" data-bind="visible: locations().length < 1">No Locations Available</h4>
+        <h4 id="search-results-error" data-bind="visible: locations().length < 1">No locations available at this time</h4>
         <ul id="search-results-list" data-bind="foreach: filteredLocations, visible: locations().length">
             <li class="search-result-item" data-bind="click: $root.searchResultsClicked">
                 <p class="search-result-item-title" data-bind="text: title"></p>
