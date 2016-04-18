@@ -1,4 +1,4 @@
-(function () {
+function googleSuccess() {
     'use strict';
 
     // Represent a single location
@@ -94,11 +94,11 @@
         // Set up the google map.
         function initializeMap() {
             //Uses google global variable, If there is no internet connection, google is not defined.
-            if (typeof google === 'undefined') {
-                document.getElementById("maperror").innerHTML = "The google map could not be loaded.";
-                console.log("No google variable");
-                return null;    
-            } else {
+            // if (typeof google === 'undefined') {
+            //     document.getElementById("maperror").innerHTML = "The google map could not be loaded.";
+            //     console.log("No google variable");
+            //     return null;    
+            // } else {
                 var mapOptions = {
                     center: self.mapCenter,
                     zoom: 16,
@@ -108,7 +108,7 @@
                 var map = new google.maps.Map(document.getElementById('map'), mapOptions);
                 map.infoWindow = new google.maps.InfoWindow();
                 return map;
-            }
+            // }
         }
          
         // Create a unique set of categories.
@@ -228,4 +228,8 @@
     // Bind an instance of our viewModel to the page
     var viewModel = new LocationListViewModel();
     ko.applyBindings(viewModel);
-}());
+};
+function googleError() {
+    document.getElementById("maperror").innerHTML = "The google map could not be loaded.";
+    console.log("No google variable");
+    };
